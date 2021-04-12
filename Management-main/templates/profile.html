@@ -1,0 +1,85 @@
+{% extends 'base.html' %} 
+{% block title %}Profile{% endblock title %}
+{% block body %}
+<main>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Profile</h3></div>
+                                    <div class="card-body">
+                                        <form>
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputFirstName">First Name</label>
+                                                        <input class="form-control py-4" id="inputFirstName" type="text" name="fname" value="{{user.first_name}}" disabled/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputLastName">Last Name</label>
+                                                        <input class="form-control py-4" id="inputLastName" type="text" name="lname" value="{{user.last_name}}" disabled/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                                <input class="form-control py-4" id="inputEmailAddress" type="email" name="email" aria-describedby="emailHelp" value="{{user.email}}" disabled/>
+                                            </div>
+                                            
+                                            {% if user.is_student or user.is_teacher%}
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                {% if user.is_teacher %}
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputFirstName">Teacher Id</label>
+                                                        <input class="form-control py-4" id="inputTeacherId" type="number" name="teacherId" value="{{user.teacher.teacher_id}}" minlength="4" maxlength="5" disabled/>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if user.is_student %}
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputFirstName">Roll No.</label>
+                                                        <input class="form-control py-4" id="inputRollNo" type="number" name="rollNo" value="{{user.student.rollno}}" minlength="5" maxlength="15" disabled/>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputLastName">Mobile No.</label>
+                                                        <input class="form-control py-4" id="inputMobile" type="number" name="mobile" {% if user.is_teacher %} value="{{user.teacher.phone_no}}" {% elif user.is_student %} value="{{user.student.phone_no}}" {% endif %} minlength="10" maxlength="10" disabled/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% if user.is_teacher %}
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputEmailAddress">Department</label>
+                                                <input class="form-control py-4" id="inputDepartment" type="text" name="department" aria-describedby="emailHelp" value="{{user.teacher.department}}" disabled/>
+                                            </div>
+                                            {% endif %}
+                                            {% if user.is_student %}
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputFirstName">Course</label>
+                                                        <input class="form-control py-4" id="inputCourse" type="text" name="course" value="{{user.student.course}}" disabled/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputLastName">Department</label>
+                                                <input class="form-control py-4" id="inputDepartment" type="text" name="department" aria-describedby="emailHelp" value="{{user.student.department}}" disabled/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                            {% endif %}
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+{% endblock body %} 
